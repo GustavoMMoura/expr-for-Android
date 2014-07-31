@@ -20,39 +20,11 @@ Javadoc comments in the source files give full documentation, and
 view.
 
 
-Installing it
-=============
-
-To install, put `expr.jar` in your classpath. (You'll need to create
-it first by running `make`, if you downloaded this from GitHub. If you
-don't have `make`, then run `javac -O expr/*.java` and then `jar cf
-expr.jar expr/*.class`.)
-
-To try it out, put the `expr` directory in your classpath.  Then
-
-	java expr.Example '3.14159 * x^2' 0 4 1
-
-should write the output given in
-[Example.java](expr/Example.java).
-
-To incorporate this code into an applet, put expr.jar somewhere
-accessible to your webserver, and reference it with the ARCHIVE
-attribute in your HTML:
-
-	<APPLET ARCHIVE="/path/to/expr.jar"
-		CODE="MyApplet.class"
-		...>
-	</APPLET>
-
-To provide documentation for your users, put
-[user-doc.html](doc/user-doc.html) where they can read it.
-
-
 Using it
 ========
 
 To get started quickly without reading the documentation, see the
-example code in [Example.java](expr/Example.java).
+example code in [Example.java](src/example/java/example/Example.java).
 Here are some excerpts from it, with each bit preceded by an
 explanation:
 
@@ -90,7 +62,7 @@ For values of `x` in the range from `low` to `high`, increasing by
     }
 
 There's another included example: the graphing applet in
-[example.html](example/example.html).
+[example.html](src/example/java/example/example.html).
 
 
 Other features
@@ -120,4 +92,4 @@ Contact
 =======
 
 See the file [COPYING](COPYING) for copyright info.
-Send questions and bug reports to Darius Bacon <darius@wry.me>.
+Send questions and issue reports to <support@safetyculture.com.au>.
