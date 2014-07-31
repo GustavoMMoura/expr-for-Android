@@ -1,6 +1,11 @@
 expr
 ====
 
+This is an Android version of Darius Bacon's expr library, the original project is
+available at (https://github.com/darius/expr). Please note that not all the code in this
+project is Android specific, the examples and testing files have not been updated for
+Android yet.
+
 This package parses and evaluates mathematical expressions over
 floating-point numbers, like `2 + 2` or `cos(x/(2*pi)) * cos(y/(2*pi))`.
 
