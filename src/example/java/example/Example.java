@@ -28,25 +28,31 @@ package expr;
 /**
  * A simple example of parsing and evaluating an expression.
  */
-public class Example {
-    public static void main(String[] args) {
+public class Example
+{
+	public static void main(String[] args)
+	{
 
-	Expr expr;
-	try {
-	    expr = Parser.parse(args[0]); 
-	} catch (SyntaxException e) {
-	    System.err.println(e.explain());
-	    return;
+		Expr expr;
+		try
+		{
+			expr = Parser.parse(args[0]);
+		}
+		catch(SyntaxException e)
+		{
+			System.err.println(e.explain());
+			return;
+		}
+
+		double low = Double.valueOf(args[1]).doubleValue();
+		double high = Double.valueOf(args[2]).doubleValue();
+		double step = Double.valueOf(args[3]).doubleValue();
+
+		Variable x = Variable.make("x");
+		for(double xval = low; xval <= high; xval += step)
+		{
+			x.setValue(xval);
+			System.out.println(expr.value());
+		}
 	}
-
-	double low  = Double.valueOf(args[1]).doubleValue();
-	double high = Double.valueOf(args[2]).doubleValue();
-	double step = Double.valueOf(args[3]).doubleValue();
-
-	Variable x = Variable.make("x");
-	for (double xval = low; xval <= high; xval += step) {
-	    x.setValue(xval);
-	    System.out.println(expr.value());
-	}
-    }
 }
