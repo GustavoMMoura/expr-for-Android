@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="calculator_error_intro">Your formula "<xliff:g id="formula" example="*a+b/c">%s</xliff:g>" does not contain correct syntax.</string>
+
+    <string name="calculator_error_empty">The formula is empty!</string>
+
+    <string name="calculator_error_start_illegal_symbol_location">The formula starts with "<xliff:g id="formula_start_symbol" example="*">%s</xliff:g>", which can never be the start of a formula.</string>
+    <string name="calculator_error_start_meaningless_symbol">The formula starts with "<xliff:g id="formula_start_unrecognised" example="?">%s</xliff:g>", which is not a recognised symbol.</string>
+
+    <string name="calculator_error_ends_unexpectedly">The formula starts with "<xliff:g id="forumla starts_and_ends" example="a+b/">%s</xliff:g>" which caused the end to be reached unexpectedly.</string>
+    <string name="calculator_error_ends_with">The formula starts with "<xliff:g id="formula_starts_with" example="a+b/">%s</xliff:g>" then there was "<xliff:g id="formula_end_symbol" example="+">%s</xliff:g>".</string>
+    <string name="calculator_error_ends_with_unrecognised">The formula starts with "<xliff:g id="formula_starts_with" example="a+b/">%s</xliff:g>" then there was "<xliff:g id="formula_end_symbol" example="+">%s</xliff:g>", which is not a recognised symbol.</string>
+
+    <string name="calculator_error_incomplete">The first part of the formula makes sense, but it doesn\'t appear to connect to the rest of it.</string>
+
+    <string name="calculator_error_expected_value_to_follow">A value was expected to follow instead.</string>
+    <string name="calculator_error_expected_value">A value was expected instead.</string>
+
+    <string name="calculator_error_expected_x">"<xliff:g id="expected" example="+">%s</xliff:g>" was expected instead.</string>
+
+    <string name="calculator_error_unknown_variable">That variable has no value.</string>
+
+    <string name="calculator_error_parse_example">An example of a formula that can be parsed is "<xliff:g id="good_formula" example="a+b/c">%s</xliff:g>".</string>
+</resources>

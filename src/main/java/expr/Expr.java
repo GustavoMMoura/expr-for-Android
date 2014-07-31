@@ -268,7 +268,7 @@ class UnaryExpr extends Expr
 			case TAN:
 				return Math.tan(arg);
 			default:
-				throw new RuntimeException("BUG: bad rator");
+				throw new RuntimeException("Bad rator");
 		}
 	}
 }
@@ -324,7 +324,7 @@ class BinaryExpr extends Expr
 			case OR:
 				return arg0 != 0 || arg1 != 0 ? 1.0 : 0.0;
 			default:
-				throw new RuntimeException("BUG: bad rator");
+				throw new RuntimeException("Bad rator");
 		}
 	}
 }

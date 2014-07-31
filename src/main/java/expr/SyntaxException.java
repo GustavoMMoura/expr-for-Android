@@ -3,6 +3,8 @@
 
 package expr;
 
+import android.content.Context;
+
 /**
  * An exception indicating a problem in parsing an expression.  It can
  * produce a short, cryptic error message (with getMessage()) or a
@@ -69,17 +71,16 @@ public class SyntaxException extends Exception
 	 *
 	 * @return the message
 	 */
-	public String explain()
+	public String explain(Context context)
 	{
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("I don't understand your formula ");
-		quotify(sb, scanner.getInput());
-		sb.append(".\n\n");
+		sb.append(context.getString(R.string.calculator_error_intro, scanner.getInput()));
+		sb.append("\n\n");
 
-		explainWhere(sb);
-		explainWhy(sb);
-		explainWhat(sb);
+		explainWhere(sb, context);
+		explainWhy(sb, context);
+		explainWhat(sb, context);
 
 		return sb.toString();
 	}
@@ -92,91 +93,71 @@ public class SyntaxException extends Exception
 
 	private String fixedInput = "";
 
-	private void explainWhere(StringBuffer sb)
+	private void explainWhere(StringBuffer sb, Context context)
 	{
 		if(scanner.isEmpty())
-		{
-			sb.append("It's empty!\n");
-		}
+			sb.append(context.getString(R.string.calculator_error_empty));
 		else if(scanner.atStart())
 		{
-			sb.append("It starts with ");
-			quotify(sb, theToken());
 			if(isLegalToken())
-				sb.append(", which can never be the start of a formula.\n");
+				sb.append(context.getString(R.string.calculator_error_start_illegal_symbol_location, theToken()));
 			else
-				sb.append(", which is a meaningless symbol to me.\n");
+				sb.append(context.getString(R.string.calculator_error_start_meaningless_symbol, theToken()));
 		}
 		else
 		{
-			sb.append("I got as far as ");
-			quotify(sb, asFarAs());
-			sb.append(" and then ");
 			if(scanner.atEnd())
-			{
-				sb.append("reached the end unexpectedly.\n");
-			}
+				sb.append(context.getString(R.string.calculator_error_ends_unexpectedly, asFarAs()));
+			else if(isLegalToken())
+				sb.append(context.getString(R.string.calculator_error_ends_with, asFarAs(), theToken()));
 			else
-			{
-				sb.append("saw ");
-				quotify(sb, theToken());
-				if(isLegalToken())
-					sb.append(".\n");
-				else
-					sb.append(", which is a meaningless symbol to me.\n");
-			}
+				sb.append(context.getString(R.string.calculator_error_ends_with_unrecognised, asFarAs(), theToken()));
 		}
+
+		sb.append('\n');
 	}
 
-	private void explainWhy(StringBuffer sb)
+	private void explainWhy(StringBuffer sb, Context context)
 	{
 		switch(reason)
 		{
 			case INCOMPLETE:
 				if(isLegalToken())
-					sb.append("The first part makes sense, but I don't see " +
-							"how the rest connects to it.\n");
+					sb.append(context.getString(R.string.calculator_error_incomplete));
 				break;
 			case BAD_FACTOR:
 			case PREMATURE_EOF:
-				sb.append("I expected a value");
-				if(!scanner.atStart()) sb.append(" to follow");
-				sb.append(", instead.\n");
+				if(scanner.atStart())
+					sb.append(context.getString(R.string.calculator_error_expected_value));
+				else
+					sb.append(context.getString(R.string.calculator_error_expected_value_to_follow));
 				break;
 			case EXPECTED:
-				sb.append("I expected ");
-				quotify(sb, expected);
-				sb.append(" at that point, instead.\n");
+				sb.append(context.getString(R.string.calculator_error_expected_x, expected));
 				break;
 			case UNKNOWN_VARIABLE:
-				sb.append("That variable has no value.\n");
+				sb.append(context.getString(R.string.calculator_error_unknown_variable));
 				break;
 			default:
 				throw new Error("Can't happen");
 		}
+
+		sb.append('\n');
 	}
 
-	private void explainWhat(StringBuffer sb)
+	private void explainWhat(StringBuffer sb, Context context)
 	{
 		fixedInput = tryToFix();
 		if(null != fixedInput)
 		{
-			sb.append("An example of a formula I can parse is ");
-			quotify(sb, fixedInput);
-			sb.append(".\n");
+			sb.append(context.getString(R.string.calculator_error_parse_example, fixedInput));
+			sb.append('\n');
 		}
 	}
 
 	private String tryToFix()
 	{
 		return (parser.tryCorrections() ? scanner.toString() : null);
-	}
-
-	private void quotify(StringBuffer sb, String s)
-	{
-		sb.append('"');
-		sb.append(s);
-		sb.append('"');
 	}
 
 	private String asFarAs()
